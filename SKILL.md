@@ -74,7 +74,7 @@ user-invocable: true
 
 用户的翻译习惯、排版偏好、摘要要求，记录到 `references/user-habits.md`（含日期）；反复出现、已稳定的要求上提到本文件对应小节。术语沉淀到 `references/glossary.md`。
 
-## Resources（工具箱九件套）
+## Resources（工具箱十件套）
 
 - `scripts/probe_pdf.py`——体检：文本层/分栏/图片 → 决定处理路线
 - `scripts/extract_pdf.py`——解析：分栏文本块、块坐标 JSON、整页渲染图
@@ -85,5 +85,6 @@ user-invocable: true
 - `scripts/extract_tables.py`——数据表提取：线段网格重建 → CSV/Markdown（扫描版提示 OCR 路线）
 - `scripts/build_bilingual.py`——分片组装 + 图片内嵌 + Edge 打印 PDF
 - `scripts/check_pairs.py`——交付前校验：配对/标签/图片/公式编号/占位符
+- `scripts/draw_schematic.py`——参数化科研示意图生成：结构化分层 SVG（语义 g 层/注释/虚线可控，Inkscape/Illustrator 可编辑）；图元库持续扩充（现支持 cylinder）
 - `references/glossary.md`——术语表（英文 | 中文 | 缩写 | 备注），跨文献累积
 - `references/user-habits.md`——用户习惯与要求日志
