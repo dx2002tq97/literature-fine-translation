@@ -14,7 +14,7 @@
 
 说明:
     - 文本层仅作初稿；公式、上标引文、化学式必须对照 scan_p<n>.png 人工核对后落稿。
-    - 纯扫描件（page<n>.txt 近空）时先用 get_textpage_ocr 过一遍（需本机 tesseract）。
+    - 纯扫描件（page<n>.txt 近空）时先跑 ocr_pdf.py（Tesseract CLI）再解析。
 """
 import argparse, json, os, sys, warnings
 

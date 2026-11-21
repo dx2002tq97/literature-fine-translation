@@ -8,7 +8,7 @@
 
 - **逐段精译** —— 准确严谨优先，不增不删原文信息；长难句可拆分但逻辑关系保真
 - **双栏对照排版** —— 左栏英文原文、右栏中文译文逐段配对；产出自包含 HTML 与 A4 PDF
-- **术语一致** —— 术语与缩写译后括号保留原文（如「击穿判据（breakdown criterion）」）；`glossary.md` 跨文献累积
+- **术语一致** —— 术语与缩写译后括号保留原文（如「监督学习（supervised learning）」)；`glossary.md` 跨文献累积
 - **图形保真** —— 图片、曲线图、表格不翻译，按原位置以高清裁剪图嵌入；公式保留原编号
 - **扫描件可靠** —— 文本层只作初稿；公式、上标引文、化学式强制对照扫描页核对（OCR 常丢符号）
 - **可进化** —— 用户习惯记录进 `references/user-habits.md`，稳定条款上提 SKILL.md
@@ -44,6 +44,11 @@ flowchart LR
     G --> H[校对清单逐项质检]
     K --> H
     H --> I[交付 + 习惯回写 user-habits.md]
+
+    EX[需单独导出图表/表格] --> X1[export_figures.py<br/>电子版矢量导出]
+    EX --> X2[trace_vector.py<br/>扫描版描摹 SVG]
+    EX --> X3[extract_tables.py<br/>表格 → CSV/MD]
+    EX --> X4[draw_schematic.py<br/>可编辑示意图]
 ```
 
 典型一次翻译会产出三个文件：
@@ -59,7 +64,7 @@ flowchart LR
 | 用途 | 组件 | 备注 |
 |---|---|---|
 | PDF 解析与图形裁剪 | Python 3.10+ / PyMuPDF | `pip install pymupdf` |
-| 扫描件 OCR 兜底 | Tesseract ≥ 5 | 可选；纯扫描 PDF 走 `get_textpage_ocr` |
+| 扫描件 OCR 兜底 | Tesseract ≥ 5 | 可选；纯扫描 PDF 由 `ocr_pdf.py` 经 Tesseract CLI 逐页识别 |
 | HTML → PDF | Edge 或 Chrome | 无头打印，路径填入 SKILL.md 环境表 |
 
 ## 目录结构
@@ -67,7 +72,7 @@ flowchart LR
 ```
 literature-fine-translation/
 ├── SKILL.md                  # 工作流、翻译硬约束、校对清单、环境依赖
-├── scripts/                  # 工具箱九件套
+├── scripts/                  # 工具箱十件套 + 公共模块
 │   ├── export_figures.py     # 图表导出：矢量区域 → 矢量 PDF/SVG + PNG
 │   ├── trace_vector.py       # 位图描摹矢量化（扫描版图形 → SVG 线稿）
 │   ├── extract_tables.py     # 数据表提取 → CSV/Markdown
