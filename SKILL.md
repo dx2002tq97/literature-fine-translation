@@ -19,12 +19,12 @@ user-invocable: true
 - 用户给出英文文献 PDF/论文，要求精细翻译、双语对照、双栏对照、精读翻译
 - 用户要求产出文献的结构化中文摘要
 
-**不适用**：日常句子/邮件翻译（直接译）；图纸/施工图原位替换（用 `bilingual-drawing-translate`）；只需快速了解大意（直接读 PDF 摘要即可）。
+**不适用**：日常句子/邮件翻译（直接译）；工程图纸原位替换类任务（属其他 skill 域）；只需快速了解大意（直接读 PDF 摘要即可）。
 
 ## 翻译原则（硬约束）
 
 1. **准确严谨第一**：宁可直译不发挥；不增不删原文信息；长难句可拆分但逻辑关系必须保真。
-2. **术语与缩写**：译后以括号保留原文——「击穿判据（breakdown criterion）」「六氟化硫（sulfur hexafluoride, SF₆）」。全文统一，以 `references/glossary.md` 为准；新术语翻译时登记入表。
+2. **术语与缩写**：译后以括号保留原文——如「击穿判据（breakdown criterion）」「监督学习（supervised learning）」。全文统一，以 `references/glossary.md` 为准；新术语翻译时登记入表。
 3. **图形不译**：图片、曲线图、示意图、照片一律不翻译、不改画，保持原位置与原排版；图注文字需译（同样括号保留关键术语）。
 4. **公式与符号**：公式保留原编号与原排版，公式内文字（变量说明）随正文处理。
 5. **排版一致**：右栏译文的段落划分、标题层级、列表、图表位置与左栏原文逐一对应。
@@ -38,16 +38,16 @@ user-invocable: true
 5. **结构化摘要**（见下）。
 6. **校对收尾**：抽查 3-5 处术语是否前后一致、有无漏段；确认图形未被改动；渲染 PDF 首末页与图表页视检。
 
-## 环境依赖（本机运行值，迁移机器时按需替换）
+## 环境依赖（首次安装时按本机实际情况填写）
 
-| 项 | 值 |
-|---|---|
-| Python + PyMuPDF | 系统 `python`（已装 pymupdf；`D:/zotero_translate/python.exe` 为备用） |
-| OCR | tesseract 5.4，`C:/Program Files/Tesseract-OCR/tesseract.exe`（不在 PATH，脚本用绝对路径） |
-| HTML→PDF | Edge 无头打印，`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe` |
-| 图形裁剪 | PyMuPDF `get_pixmap(dpi=200, clip=rect)`，坐标来自 `blocks_p<n>.json` 与渲染图目测 |
+| 项 | 要求 | 示例 |
+|---|---|---|
+| Python + PyMuPDF | `pip install pymupdf` | 系统 `python` |
+| OCR（可选，纯扫描件兑底） | Tesseract ≥ 5，记录绝对路径 | `C:/Program Files/Tesseract-OCR/tesseract.exe` |
+| HTML→PDF | Edge 或 Chrome 无头打印 | Edge 安装目录下的 `msedge.exe` |
+| 图形裁剪 | PyMuPDF `get_pixmap(dpi=200, clip=rect)`，坐标来自 `blocks_p<n>.json` 与渲染图目测 | — |
 
-纯阅读/问答类 PDF 任务可走 builtin 的 workbuddy-pdf；本 skill 的翻译流程用 PyMuPDF 直控以保证坐标与图形处理能力。
+若所在平台有 builtin 的 PDF 阅读能力，纯阅读/问答类任务可走之；本 skill 的翻译流程用 PyMuPDF 直控以保证坐标与图形处理能力。
 
 ## 结构化摘要模板
 
