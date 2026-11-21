@@ -66,7 +66,10 @@ flowchart LR
 ```
 literature-fine-translation/
 ├── SKILL.md                  # 工作流、翻译硬约束、校对清单、环境依赖
-├── scripts/                  # 工具箱六件套
+├── scripts/                  # 工具箱九件套
+│   ├── export_figures.py     # 图表导出：矢量区域 → 矢量 PDF/SVG + PNG
+│   ├── trace_vector.py       # 位图描摹矢量化（扫描版图形 → SVG 线稿）
+│   ├── extract_tables.py     # 数据表提取 → CSV/Markdown
 │   ├── probe_pdf.py          # 体检：文本层/分栏/图片 → 定处理路线
 │   ├── extract_pdf.py        # 分栏文本块 + 坐标 JSON + 整页渲染图
 │   ├── crop_region.py        # 按坐标裁高清区域（公式/图表核对）
