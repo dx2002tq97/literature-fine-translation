@@ -17,12 +17,7 @@ import argparse, os
 import cv2
 import numpy as np
 
-try:
-    import pymupdf as fitz
-except ImportError:
-    import warnings
-    warnings.filterwarnings("ignore")
-    import fitz
+from pdf_common import fitz
 
 def contours_to_svg_path(contours, tolerance):
     parts = []

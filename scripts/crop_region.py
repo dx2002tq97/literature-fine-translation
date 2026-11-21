@@ -10,12 +10,7 @@
 """
 import argparse
 
-try:
-    import pymupdf as fitz
-except ImportError:
-    import warnings
-    warnings.filterwarnings("ignore")
-    import fitz
+from pdf_common import fitz
 
 def main():
     ap = argparse.ArgumentParser()

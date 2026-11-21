@@ -1,3 +1,13 @@
+## [1.1.0] - 2026-11-22
+
+### Added
+- 工具箱扩至十件套：export_figures（矢量图表导出）、trace_vector（位图描摹）、extract_tables（表格 CSV）、draw_schematic（可编辑示意图）
+
+### Changed
+- 提取 `scripts/pdf_common.py` 公共模块，消除 parse_pages/fitz 导入重复
+- SKILL.md 重构：修正工作流编号、校对清单去重、新增「已知限制与经验」、Resources 表格化
+- extract_tables 内置自研线段网格重建（兼容 pymupdf 2.x find_tables 失效）
+
 # Changelog
 
 本 skill 遵循「用户习惯驱动进化」：行为变更记录于 `references/user-habits.md`，稳定条款上提 SKILL.md。对外版本号在此记录。

@@ -77,7 +77,8 @@ literature-fine-translation/
 │   ├── ocr_pdf.py            # 纯扫描件 OCR 兑底（Tesseract）
 │   ├── build_bilingual.py    # 分片组装 + 图片内嵌 base64 + 无头打印 PDF
 │   ├── check_pairs.py        # 交付前校验（配对/标签/图片/公式连续）
-│   └── draw_schematic.py     # 参数化科研示意图：结构化分层 SVG，可逐元素编辑
+│   ├── draw_schematic.py     # 参数化科研示意图：结构化分层 SVG，可逐元素编辑
+│   └── pdf_common.py         # 公共模块：fitz 导入 / parse_pages / find_tesseract
 └── references/
     ├── glossary.md           # 术语表（英文 | 中文 | 缩写 | 备注），随使用积累
     └── user-habits.md        # 用户习惯进化日志（空模板起步）

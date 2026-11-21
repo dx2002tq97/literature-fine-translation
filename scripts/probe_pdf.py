@@ -13,12 +13,7 @@
 """
 import sys
 
-try:
-    import pymupdf as fitz
-except ImportError:
-    import warnings
-    warnings.filterwarnings("ignore")
-    import fitz
+from pdf_common import fitz
 
 def main():
     if len(sys.argv) < 2:

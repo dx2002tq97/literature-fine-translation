@@ -14,24 +14,7 @@
 """
 import argparse, csv, os
 
-try:
-    import pymupdf as fitz
-except ImportError:
-    import warnings
-    warnings.filterwarnings("ignore")
-    import fitz
-
-def parse_pages(spec, total):
-    if not spec:
-        return range(1, total + 1)
-    out = []
-    for part in spec.split(","):
-        if "-" in part:
-            a, b = part.split("-")
-            out.extend(range(int(a), int(b) + 1))
-        else:
-            out.append(int(part))
-    return sorted({p for p in out if 1 <= p <= total})
+from pdf_common import fitz, parse_pages
 
 def collect_segments(page):
     """收集水平/垂直线段: {"o":方向, "pos":定位坐标, "a":起点, "b":终点}"""

@@ -14,6 +14,8 @@
 """
 import argparse
 
+from pdf_common import fitz
+
 def esc(x):
     return f"{x:.1f}".rstrip("0").rstrip(".")
 
@@ -80,8 +82,7 @@ def main():
     print(f"svg  -> {args.out}")
 
     if args.png:
-        import pymupdf
-        d = pymupdf.open(args.out)
+        d = fitz.open(args.out)
         png = args.out.rsplit(".", 1)[0] + "_preview.png"
         d[0].get_pixmap(dpi=150).save(png)
         d.close()

@@ -18,11 +18,7 @@
 """
 import argparse, json, os, sys, warnings
 
-try:
-    import pymupdf as fitz
-except ImportError:
-    warnings.filterwarnings("ignore")
-    import fitz
+from pdf_common import fitz
 
 def main():
     ap = argparse.ArgumentParser()
