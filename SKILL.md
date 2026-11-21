@@ -31,12 +31,13 @@ user-invocable: true
 
 ## 工作流
 
-1. **读取与解析**：运行 `scripts/extract_pdf.py <pdf> --out <目录>`，得到左右栏文本块、块坐标 JSON 与整页渲染图；确认文本层可提取（扫描件先用 PyMuPDF `get_textpage_ocr` 走本机 tesseract）。文本层只作初稿，公式/上标引文/化学式必须对照渲染图人工核对后落稿。
+1. **体检定路线**：运行 `scripts/probe_pdf.py <pdf>`——判断文本层/分栏/图片，决定路线：文本层可用 → 直接 extract；纯扫描件 → 先 `scripts/ocr_pdf.py` 再 extract。
+2. **读取与解析**：运行 `scripts/extract_pdf.py <pdf> --out <目录> --cols <probe 建议>`，得到左右栏文本块、块坐标 JSON 与整页渲染图。文本层只作初稿，公式/上标引文/化学式必须对照渲染图人工核对后落稿（用 `scripts/crop_region.py` 按坐标裁高清裁片）。
 2. **建术语初表**：通读标题/摘要，把核心术语按 `references/glossary.md` 格式先登记，再动笔。
 3. **逐段精译**：按章节顺序翻译；每译完一节自查术语一致性。篇幅长时分批进行，避免上下文丢失导致前后术语漂移。译文写入 `frag_body*.html` 分片（左英右中配对结构，见 `scripts/build_bilingual.py` 头注）。
 4. **双栏排版**：运行 `scripts/build_bilingual.py --frags <分片目录> --out-html <成品.html> --out-pdf <成品.pdf>`；脚本自动内嵌图片为 base64（HTML 自包含）并调用 Edge 无头打印出 PDF。
 5. **结构化摘要**（见下）。
-6. **校对收尾**：抽查 3-5 处术语是否前后一致、有无漏段；确认图形未被改动；渲染 PDF 首末页与图表页视检。
+6. **校对收尾**：运行 `scripts/check_pairs.py <分片目录>`（配对数/标签配平/图片存在/公式编号连续/占位符残留，退出码把关）；再抽查 3-5 处术语是否前后一致、有无漏段；渲染 PDF 首末页与图表页视检。
 
 ## 环境依赖（首次安装时按本机实际情况填写）
 
@@ -73,10 +74,14 @@ user-invocable: true
 
 用户的翻译习惯、排版偏好、摘要要求，记录到 `references/user-habits.md`（含日期）；反复出现、已稳定的要求上提到本文件对应小节。术语沉淀到 `references/glossary.md`。
 
-## Resources
+## Resources（工具箱六件套）
 
-- `scripts/extract_pdf.py`——PDF 解析：分栏文本块、块坐标 JSON、整页渲染图
+- `scripts/probe_pdf.py`——体检：文本层/分栏/图片 → 决定处理路线
+- `scripts/extract_pdf.py`——解析：分栏文本块、块坐标 JSON、整页渲染图
+- `scripts/crop_region.py`——按坐标裁高清区域（公式/图表核对与嵌入）
+- `scripts/ocr_pdf.py`——纯扫描件 OCR 兕底（tesseract）
 - `scripts/build_bilingual.py`——分片组装 + 图片内嵌 + Edge 打印 PDF
+- `scripts/check_pairs.py`——交付前校验：配对/标签/图片/公式编号/占位符
 - `references/glossary.md`——术语表（英文 | 中文 | 缩写 | 备注），跨文献累积
 - `references/user-habits.md`——用户习惯与要求日志
-- `build/` 分片命名约定：`frag_head.html`（CSS+标题区）、`frag_body*.html`（正文，按阅读顺序）、可选 `frag_tail.html`
+- 分片命名约定：`frag_head.html`（CSS+标题区）、`frag_body*.html`（正文，按阅读顺序）、可选 `frag_tail.html`

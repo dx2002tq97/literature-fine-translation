@@ -29,14 +29,19 @@
 
 ```mermaid
 flowchart LR
-    A[英文文献 PDF] --> B[extract_pdf.py<br/>分栏文本 + 块坐标 + 渲染图]
-    B --> C[术语表<br/>glossary.md]
+    A[英文文献 PDF] --> P[probe_pdf.py<br/>体检定路线]
+    P -->|纯扫描件| O[ocr_pdf.py OCR 兑底]
+    P -->|文本层可用| B[extract_pdf.py<br/>分栏文本 + 块坐标 + 渲染图]
+    O --> B
+    B --> Q[crop_region.py<br/>公式/图表高清裁片核对]
+    Q --> C[术语表 glossary.md]
     C --> D[逐段精译<br/>frag_body*.html 分片]
     D --> E[build_bilingual.py<br/>组装 + 图片内嵌 + Edge 打印]
     E --> F[双栏对照 PDF + HTML]
     D --> G[结构化中文摘要]
-    F --> H[校对清单逐项质检]
-    G --> H
+    F --> K[check_pairs.py 自动校验]
+    G --> H[校对清单逐项质检]
+    K --> H
     H --> I[交付 + 习惯回写 user-habits.md]
 ```
 
@@ -61,9 +66,13 @@ flowchart LR
 ```
 literature-fine-translation/
 ├── SKILL.md                  # 工作流、翻译硬约束、校对清单、环境依赖
-├── scripts/
+├── scripts/                  # 工具箱六件套
+│   ├── probe_pdf.py          # 体检：文本层/分栏/图片 → 定处理路线
 │   ├── extract_pdf.py        # 分栏文本块 + 坐标 JSON + 整页渲染图
-│   └── build_bilingual.py    # 分片组装 + 图片内嵌 base64 + 无头打印 PDF
+│   ├── crop_region.py        # 按坐标裁高清区域（公式/图表核对）
+│   ├── ocr_pdf.py            # 纯扫描件 OCR 兑底（Tesseract）
+│   ├── build_bilingual.py    # 分片组装 + 图片内嵌 base64 + 无头打印 PDF
+│   ├── check_pairs.py        # 交付前校验（配对/标签/图片/公式连续）
 └── references/
     ├── glossary.md           # 术语表（英文 | 中文 | 缩写 | 备注），随使用积累
     └── user-habits.md        # 用户习惯进化日志（空模板起步）
