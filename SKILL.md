@@ -103,5 +103,10 @@ user-invocable: true
 | `draw_schematic.py` | 参数化科研示意图：语义分层可编辑 SVG（图元库持续扩充，现支持 cylinder） |
 | `pdf_common.py` | 公共模块：fitz 导入 / parse_pages / find_tesseract，新脚本一律复用 |
 
+
+### PDF2Zh 排版模式（用户首选的双语对照版式）
+
+用户认可的版式 = PDF2Zh/Zotero 插件 dual 效果：左半原稿页、右半译文页，段落/图位置一一对应，版式高度还原原稿。若本机装有 pdf2zh_next/babeldoc，可用 `--clitranslator` 把自产精译（经 `scripts/pdf2zh_cli_lookup.py`）喂给排版引擎，兼顾排版质量与"不调外部翻译 API"。注意：文本块带 {vN} 占位符；双栏切块会降低匹配率；引擎收尾常报 exit -15 但产物已生成，以产物为准。局限：约 4 分钟/页，大文档需分批。
+
 数据文件：`references/glossary.md`（术语表，跨文献累积）、`references/user-habits.md`（习惯日志）。
 分片命名约定：`frag_head.html`（CSS+标题区）、`frag_body*.html`（正文，按阅读顺序）、可选 `frag_tail.html`。
